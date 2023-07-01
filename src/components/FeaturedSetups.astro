@@ -1,0 +1,35 @@
+---
+import type { SetupFileType } from '../lib/setup';
+import SetupListItem from './SetupListItem.astro';
+
+export interface Props {
+  heading: string;
+  setups: SetupFileType[];
+}
+
+const { heading, setups } = Astro.props;
+---
+
+<div class='container'>
+  <h1 class='text-2xl sm:text-3xl font-bold block'>{heading}</h1>
+
+  <div class='mt-3 sm:my-5'>
+    {setups.map((setup) => <SetupListItem setup={setup} />)}
+  </div>
+
+  <a
+    href='/setups'
+    class='hidden sm:inline transition-colors py-2 px-3 text-xs font-medium rounded-full bg-gradient-to-r from-slate-600 to-black hover:from-blue-600 hover:to-blue-800 text-white'
+  >
+    Xem toàn bộ &rarr;
+  </a>
+
+  <div class='block sm:hidden mt-3'>
+    <a
+      href='/setups'
+      class='text-sm font-regular block p-2 border border-black text-black rounded-md text-center hover:bg-black hover:text-gray-50'
+    >
+    Xem toàn bộ &nbsp;&rarr;
+    </a>
+  </div>
+</div>

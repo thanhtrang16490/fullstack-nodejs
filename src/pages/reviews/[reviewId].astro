@@ -1,0 +1,38 @@
+---
+import ReviewHeader from '../../components/ReviewHeader.astro';
+import MarkdownFile from '../../components/MarkdownFile.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllReviews, ReviewFileType } from '../../lib/review';
+
+export interface Props {
+  review: ReviewFileType;
+}
+
+export async function getStaticPaths() {
+  const reviews = await getAllReviews();
+
+  return reviews.map((review) => ({
+    params: { reviewId: review.id },
+    props: { review },
+  }));
+}
+
+const { reviewId } = Astro.params;
+const { review } = Astro.props;
+const { frontmatter: reviewData } = review;
+---
+
+<BaseLayout
+  title={reviewData.seo.title}
+  description={reviewData.seo.description}
+  permalink={`/reviews/${reviewId}`}
+  canonicalUrl={reviewData.canonicalUrl}
+>
+  <ReviewHeader review={review} />
+
+  <div class='py-5 sm:py-10 max-w-[700px] mx-auto'>
+    <MarkdownFile>
+      <review.Content />
+    </MarkdownFile>
+  </div>
+</BaseLayout>

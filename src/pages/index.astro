@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FeaturedVideos from '../components/FeaturedVideos.astro';
+import FeaturedSetups from '../components/FeaturedSetups.astro';
+import FeaturedReviews from '../components/FeaturedReviews.astro';
+import { getAllSetups } from '../lib/setup';
+import { getAllVideos } from '../lib/video';
+import { getAllReviews } from '../lib/review';
+
+const reviews = await getAllReviews();
+const setups = await getAllSetups();
+const videos = await getAllVideos();
+
+---
+<BaseLayout title="Roadmap - Setup - Review">
+  <div class="bg-gradient-to-b from-blue-900 to-black">
+    <div class="border-b border-b-[#1e293c]">
+      <div
+        class="container px-6 py-6 text-left sm:px-0 sm:py-20 sm:text-center"
+      >
+        <h1
+          class="mb-2 bg-gradient-to-b from-amber-50 to-blue-900 bg-clip-text text-2xl font-bold text-transparent sm:mb-4 sm:text-5xl"
+        >
+          Roadmap - Setup - Review
+        </h1>
+
+        <p class="hidden px-4 text-lg text-gray-400 sm:block">
+          <span class="font-medium text-gray-400">RMSURV</span> là một cộng đồng
+          xây dựng lộ trình, hướng dẫn và triển khai ứng dụng công nghệ vào cuộc
+          sống
+        </p>
+      </div>
+    </div>
+    <div class='grid grid-cols-1 gap-7 sm:gap-16 bg-gray-50 py-7 sm:py-16'>
+      <FeaturedSetups heading='Setups' setups={setups.slice(0, 7)} />
+      <FeaturedReviews heading='Reviews' reviews={reviews.slice(0, 7)} />
+      <FeaturedVideos heading='Videos' videos={videos.slice(0, 7)} />
+    </div>
+  </div>
+</BaseLayout>

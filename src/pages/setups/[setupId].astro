@@ -1,0 +1,38 @@
+---
+import SetupHeader from '../../components/SetupHeader.astro';
+import MarkdownFile from '../../components/MarkdownFile.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllSetups, SetupFileType } from '../../lib/setup';
+
+export interface Props {
+  setup: SetupFileType;
+}
+
+export async function getStaticPaths() {
+  const setups = await getAllSetups();
+
+  return setups.map((setup) => ({
+    params: { setupId: setup.id },
+    props: { setup },
+  }));
+}
+
+const { setupId } = Astro.params;
+const { setup } = Astro.props;
+const { frontmatter: setupData } = setup;
+---
+
+<BaseLayout
+  title={setupData.seo.title}
+  description={setupData.seo.description}
+  permalink={`/setups/${setupId}`}
+  canonicalUrl={setupData.canonicalUrl}
+>
+  <SetupHeader setup={setup} />
+
+  <div class='py-5 sm:py-10 max-w-[700px] mx-auto'>
+    <MarkdownFile>
+      <setup.Content />
+    </MarkdownFile>
+  </div>
+</BaseLayout>

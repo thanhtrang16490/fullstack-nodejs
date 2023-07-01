@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SimplePageHeader from "../components/SimplePageHeader.astro";
+---
+
+<BaseLayout title="Roadmaps">
+  <SimplePageHeader
+    title="Roadmaps"
+    description="Roadmaps"
+    showYouTubeAlert={true}
+  />
+
+  <div class="flex bg-gray-100 pb-14 pt-4 sm:pb-16 sm:pt-8">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-0.5 sm:grid-cols-2 sm:gap-3"></div>
+    </div>
+  </div>
+</BaseLayout>
